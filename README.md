@@ -1,4 +1,4 @@
-Python LLM Trainer v4.0 - Professional Navy Edition
+Python sLLM (small) Trainer v4.0 - Professional Navy Edition
 A production-grade desktop application for training custom transformer language models on code and text datasets with a modern navy-themed GUI.
 Features
 Core Capabilities
