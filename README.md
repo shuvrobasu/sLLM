@@ -15,7 +15,9 @@ A production-grade desktop application for training custom transformer language 
 - ****NO EXTERNAL MODEL DEPENDECIES****
 - BOTH TRAINING AND INFERENCE RUN FROM SAME APP
 - ABILITY TO TRAIN 1B MODELS (SUBJECT TO SYSTEM RESTRICTIONS)
-- TESTED OF 450M MODEL
+- TESTED TRAINING AN INFERENCE OF 450M MODEL
+- CAN BE USED TO TRAIN ON ANY TEXT (PYTHON, C, RUST, EBOOKS, TXT)
+- LOOK AT MY OTHER REPO FOR INFO (REPO EXTRACTOR https://github.com/shuvrobasu/repo_view_extract / EBOOK EXTRACTOR https://github.com/shuvrobasu/ebook_conver_extract)
 
 <img width="1920" height="1040" alt="image" src="https://github.com/user-attachments/assets/5c1e558b-de2f-4650-8e38-602a24b5e29f" />
 
