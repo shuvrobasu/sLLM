@@ -36,110 +36,112 @@ Causal self-attention masking
 <img width="733" height="279" alt="image" src="https://github.com/user-attachments/assets/e6ca5dae-5eb5-4fdf-a8ce-dda3a8b8952a" />
 
 **Model Specifications**
-Embedding:
+**Embedding:**
 
 * Vocabulary: 16K - 50K tokens (BPE)
 * Dimension: Must be divisible by number of heads
 * Position encoding: Learned embeddings up to max_seq_len
 
-Attention:
+**Attention:**
 
 Head dimension: d_model / n_heads (typically 64 or 128)
 Scaled dot-product attention
 Causal masking (lower triangular)
 Dropout applied post-attention
 
-Feed-Forward:
+**Feed-Forward:**
 
 Expansion ratio: 4x (d_ff = 4 * d_model)
 GELU activation (smooth, differentiable)
 Dropout after both linear layers
 
-Normalization:
+**Normalization:**
 
-LayerNorm before each sublayer (pre-norm)
-Epsilon: 1e-5
-Final LayerNorm before output projection
+* LayerNorm before each sublayer (pre-norm)
+* Epsilon: 1e-5
+* Final LayerNorm before output projection
 
-Initialization:
+**Initialization:**
 
-Weights: Normal(mean=0, std=0.02)
-Biases: Zeros
-Following GPT-2 initialization scheme
+* Weights: Normal(mean=0, std=0.02)
+* Biases: Zeros
+* Following GPT-2 initialization scheme
 
-Training Features
-Precision Modes:
+**Training Features**
+**Precision Modes:**
 
-BF16 (bfloat16): RTX 30xx/40xx, no scaling needed
-FP16 (float16): Older GPUs, requires loss scaling
-FP32 (float32): Full precision fallback
+* BF16 (bfloat16): RTX 30xx/40xx, no scaling needed
+* FP16 (float16): Older GPUs, requires loss scaling
+* FP32 (float32): Full precision fallback
 
-Optimizations:
+**Optimizations:**
 
-Gradient checkpointing: Recompute activations during backward
-Gradient accumulation: Simulate larger batches
-Mixed precision training: Faster compute, lower memory
-Non-blocking tensor transfers: Overlap CPU/GPU ops
+- Gradient checkpointing: Recompute activations during backward
+- Gradient accumulation: Simulate larger batches
+- Mixed precision training: Faster compute, lower memory
+- Non-blocking tensor transfers: Overlap CPU/GPU ops
 
-Learning Rate Schedule:
+**Learning Rate Schedule:**
 
-Linear warmup: First 10% of training
-Cosine decay: Smooth reduction to 0
-Formula: lr = base_lr * 0.5 * (1 + cos(π * progress))
+- Linear warmup: First 10% of training
+- Cosine decay: Smooth reduction to 0
+- Formula: lr = base_lr * 0.5 * (1 + cos(π * progress))
 
-Loss Function:
+**Loss Function:**
 
-Cross-entropy over vocabulary
-Next-token prediction objective
-Averaged over sequence length and batch
+- Cross-entropy over vocabulary
+- Next-token prediction objective
+- Averaged over sequence length and batch
 
-DPO Training Support
-Direct Preference Optimization for alignment:
-DPO Loss:
+**DPO Training Support**
+**Direct Preference Optimization for alignment:**__
+**DPO Loss:**
+<code>
 L = -log(σ(β * (log π(y_w|x) - log π(y_l|x))))
+</code>
 Where:
 
-β: KL penalty coefficient (default: 0.1)
-y_w: Chosen/preferred response
-y_l: Rejected/dispreferred response
-σ: Sigmoid function
+- β: KL penalty coefficient (default: 0.1)
+- y_w: Chosen/preferred response
+- y_l: Rejected/dispreferred response
+- σ: Sigmoid function
 
-Features:
+**Features:**
 
-Preference pair generation from documents
-Reference model policy (frozen)
-Bradley-Terry preference model
-Reward margin tracking
+- Preference pair generation from documents
+- Reference model policy (frozen)
+- Bradley-Terry preference model
+- Reward margin tracking
 
 <img width="1920" height="1040" alt="image" src="https://github.com/user-attachments/assets/50b1f466-f64d-444b-8483-e6c8b442d25d" />
 
 <img width="1920" height="1040" alt="image" src="https://github.com/user-attachments/assets/42af7f18-f75e-4955-997d-bfcc17a93125" />
 
 
-GUI Features
+**GUI Features**
 
-Professional Theme: Navy blue design with icons, tooltips, and status indicators
-Non-Blocking Operations: All heavy tasks run in background threads
-Toast Notifications: Non-intrusive feedback system
-Hardware Monitor: Real-time CPU/RAM/VRAM graphs in sidebar
-Model Tester: Interactive text generation with temperature/top-k/top-p controls
+- Professional Theme: Navy blue design with icons, tooltips, and status indicators
+- Non-Blocking Operations: All heavy tasks run in background threads
+- Toast Notifications: Non-intrusive feedback system
+- Hardware Monitor: Real-time CPU/RAM/VRAM graphs in sidebar
+- Model Tester: Interactive text generation with temperature/top-k/top-p controls
 
 <img width="1920" height="1040" alt="image" src="https://github.com/user-attachments/assets/f5363822-c914-4e62-aa24-e6326ebaf84b" />
 <img width="1920" height="1040" alt="image" src="https://github.com/user-attachments/assets/efc7913b-a0d8-46e9-8a9a-b6d0e36e7bbc" />
 <img width="1920" height="1040" alt="image" src="https://github.com/user-attachments/assets/1aa7b93c-cdcc-4db7-a53e-9c6aa1b575bb" />
 
-Inbuilt Comprehensive Help
+**Inbuilt Comprehensive Help**
 <p></p>
 <img width="602" height="732" alt="image" src="https://github.com/user-attachments/assets/2b2f83fa-0559-4ad2-916a-43dd0499ac5e" />
 
-Model File Format
-Checkpoint Structure (.pt):
+**Model File Format**
+**Checkpoint Structure (.pt):**
 
 Parameter Count Estimation<BR>
 <img width="342" height="258" alt="image" src="https://github.com/user-attachments/assets/59f134cb-339a-49e8-bd36-f35952de4c4d" />
 
-VRAM Requirements
-Breakdown:
+**VRAM Requirements**
+**Breakdown:**
 
 Model params: 
 * ~4 bytes per param (FP32) or ~2 bytes (FP16/BF16)
@@ -155,7 +157,7 @@ Example (110M params, BF16):
 * Gradients: 220MB
 * Total: ~8-9GB
 
-Context Extension
+**Context Extension**
 Increase model context length post-training:
 Method:
 
@@ -165,7 +167,7 @@ Method:
 * Fine-tune 1-2 epochs with longer sequences
 * Gradually increase to target length
 
-Position Interpolation:
+**Position Interpolation:**
 python# <BR>
 <code> Linearly interpolate position embeddings
 old_positions = model.pos_emb.weight.data
