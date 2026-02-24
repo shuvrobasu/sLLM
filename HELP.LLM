@@ -1,0 +1,229 @@
+[img:sllm2.png]
+# [icon:HELP] TABLE OF CONTENTS
+[color:cyan]═════════════════════════════════════════[/color]
+• [link:quick_start_guide]Quick Start Guide[/link]
+• [link:dpo_sft_creator]DPO / SFT Creator[/link]
+• [link:recommended_configurations]Recommended Configs[/link]
+• [link:parameter_guide]Parameter Guide[/link]
+• [link:troubleshooting]Troubleshooting[/link]
+• [link:key_state_summary]State Summary[/link]
+• [link:keyboard_shortcuts]Shortcuts[/link]
+• [link:about]About[/link]
+
+
+# [icon:ROCKET] QUICK START GUIDE
+[color:green]═════════════════════════════════════════[/color]
+
+## 1. [icon:DATA] DATA
+   • Select a folder containing Python files ([b]100+ recommended[/b])
+   • Click [b]Scan[/b] to analyze the files
+
+## 2. [icon:MODEL] MODEL
+   • Keep default settings for first run
+   • Adjust based on your GPU VRAM
+
+## 3. [icon:TRAINING] TRAINING
+   • Start with default hyperparameters
+   • Enable [color:accent]early stopping[/color] to prevent overfitting
+
+## 4. [icon:PLAY] START
+   • Click [b]Start Training[/b] in the header
+   • Monitor progress in the [color:green]Progress[/color] tab
+   
+[link:table_of_contents]⇧ Back to Top[/link]
+
+
+
+
+# [icon:SPARKLE] DPO / SFT CREATOR
+[color:cyan]═════════════════════════════════════════[/color]
+This tool helps you create datasets for specific training needs.
+
+## 1. DPO Mode (Direct Preference Optimization)
+   • Creates pairs of [color:green]Chosen[/color] (Good) vs [color:red]Rejected[/color] (Bad) responses.
+   • Used to align the model with human preferences.
+   • [b]Workflow:[/b]
+     1. Load a Model and Tokenizer.
+     2. Scan for text files.
+     3. Select a file to view content.
+     4. Write a [color:accent]Prompt[/color].
+     5. Generate multiple responses OR write your own.
+     6. Assign [color:green]Best[/color] and [color:red]Worst[/color] grades.
+
+## 2. SFT Mode (Supervised Fine-Tuning)
+   • Creates single [color:green]Prompt -> Response[/color] entries.
+   • Used to teach the model how to follow instructions (Instruction Tuning).
+   • [b]Workflow:[/b]
+     1. Switch "Training Mode" to [b]SFT[/b].
+     2. Write a Prompt and generate/write a Response.
+     3. Score the best response.
+     4. Click [b]Save SFT[/b] to save the pair.
+
+## 3. Auto-Grader
+   • You can load a separate small model (e.g., TinyLlama) to auto-score responses.
+   • Helps filter out low-quality generations quickly.
+
+## 4. Export
+   • Use [color:yellow]Export Pairs[/color] to save your work to JSON.
+   • Supports [mono]dpo_pairs.json[/mono] (DPO) and [mono]sft_data.json[/mono] (SFT).
+
+[link:table_of_contents]⇧ Back to Top[/link]
+
+
+
+
+# [icon:GPU] RECOMMENDED CONFIGURATIONS
+[color:cyan]═════════════════════════════════════════[/color]
+
+[color:accent]8GB VRAM (RTX 3070, etc.)[/color]
+   • Embedding: 256-384
+   • Layers: 6
+   • Batch: 16-32
+   • Context: 256-512
+
+[color:accent]16GB VRAM (RTX 4080, etc.)[/color]
+   • Embedding: 512
+   • Layers: 8-12
+   • Batch: 64
+   • Context: 512-1024
+
+[color:accent]24GB+ VRAM (RTX 4090, A100)[/color]
+   • Embedding: 768-1024
+   • Layers: 12-24
+   • Batch: 128+
+   • Context: 1024-2048
+
+[color:yellow]300k Files (~500M-800M tokens)[/color]
+[mono]
+Parameter       Value        Reason
+──────────────────────────────────────────────────
+d_model         768          More capacity for larger dataset
+n_heads         12           768/12 = 64 per head (optimal)
+n_layers        12           Deeper understanding
+d_ff            3072         4x d_model
+vocab_size      32000        Keep same
+context         1024         Keep same
+batch_size      128          Maximize GPU
+epochs          3-5          More data = fewer epochs needed
+stride          512          Half context
+~Params         ~200M
+[/mono]
+
+Est. Time       [b]4-6 hours[/b]       With optimizations
+
+[color:yellow]450k Files (~800M-1.2B tokens)[/color]
+[mono]
+Parameter       Value       Reason
+──────────────────────────────────────────────────
+d_model         1024        Match data scale
+n_heads         16          1024/16 = 64 per head
+n_layers        12-16       Balance depth/speed
+d_ff            4096        4x d_model
+vocab_size      50000       More code patterns
+context         1024        Keep for VRAM
+batch_size      96          Reduced for larger model
+epochs          2-4         Large dataset
+stride          512         Half context
+~Params         ~300-400M
+[/mono]
+
+[link:table_of_contents]⇧ Back to Top[/link]
+
+
+
+# [icon:SETTINGS] PARAMETER GUIDE
+[color:cyan]═══════════════════════════════════════[/color]
+
+## EMBEDDING DIM (d_model)
+   Size of token representations. Larger = more capacity.
+   Must be divisible by number of attention heads.
+
+## ATTENTION HEADS (n_heads)
+   Parallel attention mechanisms. More = better patterns.
+   `d_model / n_heads` should be 64 or 128.
+
+## LAYERS (n_layers)
+   Transformer blocks stacked. More = deeper understanding.
+   6-8 for experiments, 12+ for production.
+
+## LEARNING RATE (lr)
+   Step size for optimization. [color:red]Critical parameter.[/color]
+   • [color:green]3e-4[/color]: Good starting point
+   • [color:yellow]1e-4[/color]: More stable, slower
+   • [color:yellow]5e-5[/color]: Fine-tuning existing models
+
+[link:table_of_contents]⇧ Back to Top[/link]
+
+
+
+
+# [icon:WARNING] TROUBLESHOOTING
+[color:cyan]══════════════════════════════════════[/color]
+
+[color:red]OUT OF MEMORY[/color]
+   • Reduce batch size by half
+   • Reduce context length
+   • Click [b]Clear VRAM[/b] button
+   • Close other GPU applications
+
+[color:yellow]TRAINING TOO SLOW[/color]
+   • Increase batch size if VRAM allows
+   • Ensure using BF16/FP16 precision
+   • Check that CUDA is being used
+
+[color:red]LOSS NOT DECREASING[/color]
+   • Try lower learning rate (1e-4)
+   • Ensure enough training data
+   • Increase model capacity
+
+[color:yellow]MODEL OUTPUTS GIBBERISH[/color]
+   • Train for more epochs
+   • Increase model size
+   • Check data quality
+   • Ensure loss dropped below 2.0
+
+[link:table_of_contents]⇧ Back to Top[/link]
+
+
+
+
+# KEY STATE SUMMARY
+[color:cyan]═══════════════════════════════════════[/color]
+[mono]
+State       Start   Stop    Pause
+──────────────────────────────────────────
+IDLE        [color:green]✅[/color]      [color:red]❌[/color]      [color:red]❌[/color]
+ERROR       [color:green]✅[/color]      [color:red]❌[/color]      [color:red]❌[/color]
+SCANNING    [color:red]❌[/color]      [color:green]✅[/color]      [color:red]❌[/color]
+PROCESSING  [color:red]❌[/color]      [color:green]✅[/color]      [color:red]❌[/color]
+TOKENIZING  [color:red]❌[/color]      [color:green]✅[/color]      [color:red]❌[/color]
+ENCODING    [color:red]❌[/color]      [color:green]✅[/color]      [color:red]❌[/color]
+TRAINING    [color:red]❌[/color]      [color:green]✅[/color]      [color:green]✅[/color]
+PAUSED      [color:red]❌[/color]      [color:green]✅[/color]      [color:green]✅[/color]
+SAVING      [color:red]❌[/color]      [color:green]✅[/color]      [color:red]❌[/color]
+LOADING     [color:red]❌[/color]      [color:green]✅[/color]      [color:red]❌[/color]
+[/mono]
+
+[link:table_of_contents]⇧ Back to Top[/link]
+
+
+# [icon:BOLT] KEYBOARD SHORTCUTS
+[color:cyan]═══════════════════════════════════════[/color]
+
+[b]Ctrl+S[/b]     Save settings
+[b]Ctrl+O[/b]     Open settings file
+[b]Ctrl+Q[/b]     Quit application
+
+[link:table_of_contents]⇧ Back to Top[/link]
+
+
+
+
+# [icon:INFO] ABOUT
+[color:cyan]═══════════════════════════════════════[/color]
+
+sLLM Trainer v4.0 (Small LLM Trainer)
+(C)[color:red][b] Shuvro Basu [/b][/color] 2026.
+Professional tool for training GPT-style language models.
+
+Built with [b]PyTorch[/b] and [b]Tkinter[/b].
