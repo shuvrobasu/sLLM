@@ -2717,39 +2717,7 @@ if TORCH_AVAILABLE:
 
     ########################## END OF CLASS MultiHeadAttention ################################
 
-    # -----------------------------------------#
-    # Class Name : TransformerBlock
-    # Calls: __init__, forward, nn.Dropout, nn.GELU, nn.LayerNorm, nn.Linear, nn.Sequential
-    # -----------------------------------------#
-    # class TransformerBlock(nn.Module):
-    #     def __init__(self, config: ModelConfig):
-    #         super().__init__()
-    #         self.ln1 = nn.LayerNorm(config.d_model)
-    #         self.attn = MultiHeadAttention(config)
-    #         self.ln2 = nn.LayerNorm(config.d_model)
-    #         self.mlp = nn.Sequential(
-    #             nn.Linear(config.d_model, config.d_ff),
-    #             nn.GELU(),
-    #             nn.Dropout(config.dropout),
-    #             nn.Linear(config.d_ff, config.d_model),
-    #             nn.Dropout(config.dropout)
-    #         )
-    #         self.chk = config.gradient_checkpointing
-    #
-    #     def forward(self, x: torch.Tensor) -> torch.Tensor:
-    #         if self.chk and self.training:
-    #             # Trade compute for memory
-    #             def custom_forward(module_input):
-    #                 h = module_input + self.attn(self.ln1(module_input))
-    #                 return h + self.mlp(self.ln2(h))
-    #
-    #             return torch.utils.checkpoint.checkpoint(
-    #                 custom_forward, x, use_reentrant=False
-    #             )
-    #         else:
-    #             x = x + self.attn(self.ln1(x))
-    #             x = x + self.mlp(self.ln2(x))
-    #             return x
+
     class TransformerBlock(nn.Module):
         def __init__(self, config: ModelConfig):
             super().__init__()
@@ -4060,7 +4028,7 @@ class AutoGrader:
 class LLMTrainerGUI:
     """Professional LLM Trainer with side panel navigation."""
 
-    VERSION = "4.0"
+    VERSION = "1.0"
     SETTINGS_FILE = "trainer_settings.json"
     INDEX_FILE = "sllm_projects.ini"
 
@@ -4916,9 +4884,7 @@ class LLMTrainerGUI:
     # ---------------------------------------------------#
     # Method name: _build_data_page
     # ---------------------------------------------------#
-    # ---------------------------------------------------#
-    # Method name: _build_data_page
-    # ---------------------------------------------------#
+
     def _build_data_page(self):
         """Build the data settings page."""
         page = self._create_page_frame("data")
@@ -10035,7 +10001,7 @@ class LLMTrainerGUI:
 def main():
     """Main entry point."""
     print("=" * 60)
-    print(f"  {Icons.ROCKET} Python LLM Trainer v4.0 - Professional Navy Edition")
+    print(f"  {Icons.ROCKET} Python sLLM Trainer v1.0 - Professional Edition")
     print("=" * 60)
     import multiprocessing
     multiprocessing.freeze_support()
