@@ -325,21 +325,10 @@ python llm_trainer_v6.py
 - **Context Length**: 512 (8GB GPU), 1024+ (16GB+)
 - **Precision**: BF16 (RTX 30xx+), FP16 (older), FP32 (debugging)
 
-## Project Structure
-```
-projects/
-└── my_project/
-    ├── settings.json          # UI state
-    ├── checkpoints/
-    │   ├── python_llm_best.pt # Best model
-    │   ├── python_llm_last.pt # Latest
-    │   └── tokenizer.json     # Vocabulary
-    ├── encoded_data/
-    │   ├── train_data.npy
-    │   └── val_data.npy
-    └── stats/
-        └── training_stats.json
-```
+### Project Structure
+
+<img width="481" height="339" alt="image" src="https://github.com/user-attachments/assets/ac3d918e-04c4-48dc-88b7-bc1f730cd859" />
+<br>
 
 ## Data Refinement Workflow
 
