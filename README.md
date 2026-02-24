@@ -309,7 +309,6 @@ python llm_trainer.py
 3. Enable "Incremental Mode"
 4. Reuses existing tokenizer
 5. Learns new + old data
-```
 
 ## Configuration
 
@@ -345,21 +344,21 @@ python llm_trainer.py
 
 ### Context Extension
 Increase model's context window:
-```
+
 1. Train base model (512 context)
 2. Load checkpoint
 3. Set new context (1024)
 4. Train 1-2 epochs with longer sequences
-```
 
 ### DPO Creator
 Generate preference pairs for alignment:
-```
+
 1. Select document type (prose/code)
 2. Extract samples
 3. Generate chosen/rejected pairs
 4. Export JSON for DPO training
-Performance Tips
+
+**Performance Tips**
 
 Mixed Precision: Use BF16 on Ampere+ GPUs
 Gradient Accumulation: Simulate larger batches
