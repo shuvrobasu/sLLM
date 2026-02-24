@@ -264,7 +264,7 @@ cd llm-trainer
 pip install torch psutil tokenizers
 
 # Run
-python llm_trainer_v6.py
+python llm_trainer.py
 ```
 
 ## Quick Start
