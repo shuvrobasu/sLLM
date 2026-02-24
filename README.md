@@ -12,32 +12,39 @@ A production-grade desktop application for training custom transformer language 
 - Pre-norm architecture (LayerNorm before attention/FFN)
 - Weight tying (token embeddings = output projection)
 - Causal self-attention masking
+- ****NO EXTERNAL MODEL DEPENDECIES****
+- BOTH TRAINING AND INFERENCE RUN FROM SAME APP
+- ABILITY TO TRAIN 1B MODELS (SUBJECT TO SYSTEM RESTRICTIONS)
+- TESTED OF 450M MODEL
 
 <img width="1920" height="1040" alt="image" src="https://github.com/user-attachments/assets/5c1e558b-de2f-4650-8e38-602a24b5e29f" />
 
 
-**Components:**
+**Components:**<br>
 **1. MultiHeadAttention**
 - Fused QKV projection (3 * d_model)
 - Flash attention compatible (F.scaled_dot_product_attention)
 - Causal masking for autoregressive generation
-- Dropout after attention
+- Dropout after attention<br>
+
 **2. TransformerBlock**
 - Pre-LayerNorm architecture
 - Multi-head self-attention with residual
 - Feed-forward network (d_model → d_ff → d_model)
 - GELU activation
-- Optional gradient checkpointing (trade compute for memory)
+- Optional gradient checkpointing (trade compute for memory)<br>
+
 **3. Generation Capabilities**
 - Temperature-based sampling
 - Top-K filtering
 - Repetition penalty (configurable > 1.0 = penalize, < 1.0 = encourage)
 - EOS token detection
 - Max token limiting
-**Architecture Configurations**
+
+**Architecture Configurations**<br>
 <img width="733" height="279" alt="image" src="https://github.com/user-attachments/assets/e6ca5dae-5eb5-4fdf-a8ce-dda3a8b8952a" />
 
-**Model Specifications**
+**Model Specifications**<br>
 **Embedding:**
 
 * Vocabulary: 16K - 50K tokens (BPE)
