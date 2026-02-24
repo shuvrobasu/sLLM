@@ -159,7 +159,7 @@ Example (110M params, BF16):
 
 **Context Extension**
 Increase model context length post-training:
-Method:
+<br>Method:
 
 * Train base model (e.g., 512 tokens)
 * Load checkpoint
@@ -168,7 +168,7 @@ Method:
 * Gradually increase to target length
 
 **Position Interpolation:**
-python# <BR>
+<BR>
 <code> Linearly interpolate position embeddings
 old_positions = model.pos_emb.weight.data
 new_positions = F.interpolate(
@@ -193,79 +193,79 @@ Default: 40
 
 **Repetition Penalty (0.5 - 2.0):**
 
-< 1.0: Encourages repetition
-= 1.0: No effect
+- < 1.0: Encourages repetition
+- >= 1.0: No effect
+- 1.0: Penalizes repetition
+- Default: 1.2
 
-
-1.0: Penalizes repetition
-
-Default: 1.2
-
-Technical Details
-
+_**Technical Details**_
+<br>
 **Dataset Processing**
 CodeDataset:
 
-Sliding window with configurable stride
-Efficient numpy memory mapping
-Batched loading with PyTorch DataLoader
-Pin memory for faster GPU transfer
+- Sliding window with configurable stride
+- Efficient numpy memory mapping
+- Batched loading with PyTorch DataLoader
+- Pin memory for faster GPU transfer
 
 **Tokenization:**
 
-BPE (Byte Pair Encoding) via HuggingFace tokenizers
-Fallback: Simple word-level tokenizer
-Special tokens: [PAD]=0, [UNK]=1, [BOS]=2, [EOS]=3
-Vocabulary pruning by frequency
+- BPE (Byte Pair Encoding) via HuggingFace tokenizers
+- Fallback: Simple word-level tokenizer
+- Special tokens: [PAD]=0, [UNK]=1, [BOS]=2, [EOS]=3
+- Vocabulary pruning by frequency
 
 **Validation Strategy**
 Metrics:
 
 **Perplexity: **
-exp(val_loss)
-Raw cross-entropy loss
-Gradient norms (for monitoring stability)
-**
-Early Stopping:**
+- exp(val_loss)
+- Raw cross-entropy loss
+- Gradient norms (for monitoring stability)
 
-Patience: N epochs without improvement
-Metric: Validation loss
-Restoration: Load best checkpoint on stop
+**Early Stopping:**
 
+- Patience: N epochs without improvement
+- Metric: Validation loss
+- Restoration: Load best checkpoint on stop
 
 **System Requirements**
-**Minimum**__
+
+_**Minimum**_
 
 Python 3.8+
-8GB System RAM
-GPU: 6GB VRAM (NVIDIA RTX 2060 or equivalent)
-Storage: 10GB+ for checkpoints
+- 8GB System RAM
+- GPU: 6GB VRAM (NVIDIA RTX 2060 or equivalent)
+- Storage: 10GB+ for checkpoints
 
-**Recommended**__
+_**Recommended**_
 
-Python 3.10+
+- Python 3.10+
 16GB System RAM
-GPU: 12GB+ VRAM (RTX 3060/4060 Ti or better)
-Storage: 50GB+ SSD for datasets
+- GPU: 12GB+ VRAM (RTX 3060/4060 Ti/50xx or better)
+- Storage: 50GB+ SSD for datasets
 
 Dependencies
-bash# Required
-torch>=2.0.0
-psutil
+_Required_
+- torch>=2.0.0
+- psutil
+- Cuda 13.0
 
 # Optional (for fast tokenization)
-tokenizers
-Installation
-bash# Clone repository
-git clone https://github.com/yourusername/llm-trainer.git
-cd llm-trainer
+-tokenizers
+
+**Installation**
+
+# Clone repository
+<BR>git clone https://github.com/yourusername/llm-trainer.git
+<BR>cd llm-trainer
 
 # Install dependencies
 pip install torch psutil tokenizers
 
 # Run
 python llm_trainer.py
-```
+
 
 ## Quick Start
 
