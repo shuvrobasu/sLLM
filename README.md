@@ -295,15 +295,15 @@ python llm_trainer.py
 ## Training Strategy
 
 ### New Project
-```
+
 1. Scan folder → processes all files
 2. Train tokenizer → vocabulary generation
 3. Encode data → converts to token IDs
 4. Train model → transformer training
-```
+
 
 ### Incremental Training
-```
+
 1. Load checkpoint
 2. Add new files to folder
 3. Enable "Incremental Mode"
@@ -395,9 +395,9 @@ _CUDA Out of Memory_
 **License**
 MIT License - See LICENSE file<BR>
 _Credits_
-<BR>**Author: Shuvro Basu**
-<BR></P>Year: 2026
-<P></P>Contributing
+**Author: Shuvro Basu**
+<br></P>Year: 2026
+<p></P>Contributing
 Pull requests welcome. Focus areas:
 
 
