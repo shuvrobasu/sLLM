@@ -257,14 +257,14 @@ _Required_
 **Installation**
 
 # Clone repository
-<BR>git clone https://github.com/yourusername/llm-trainer.git
-<BR>cd llm-trainer
+<BR>git clone https://github.com/shuvrobasu/sLLM_trainer.git
+<BR>cd sLLm_trainer
 
 # Install dependencies
 pip install torch psutil tokenizers
 
 # Run
-python llm_trainer.py
+python sllm.py
 
 
 ## Quick Start
