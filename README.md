@@ -3,13 +3,13 @@ A production-grade desktop application for training custom transformer language 
 Features
 Core Capabilities
 
-GPTModel (Decoder-Only Transformer)Base Architecture:
+GPTModel (Decoder-Only Transformer)Base Architecture:<BR>
 
-Token + positional embeddings
-N transformer blocks with residual connections
-Pre-norm architecture (LayerNorm before attention/FFN)
-Weight tying (token embeddings = output projection)
-Causal self-attention masking
+- Token + positional embeddings
+- N transformer blocks with residual connections
+- Pre-norm architecture (LayerNorm before attention/FFN)
+- Weight tying (token embeddings = output projection)
+- Causal self-attention masking
 
 <img width="1920" height="1040" alt="image" src="https://github.com/user-attachments/assets/5c1e558b-de2f-4650-8e38-602a24b5e29f" />
 
