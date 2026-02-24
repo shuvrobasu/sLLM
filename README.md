@@ -394,7 +394,7 @@ _CUDA Out of Memory_
 
 **License**
 MIT License - See LICENSE file<BR>
-_Credits_
+_Credits_<br>
 **Author: Shuvro Basu**
 <br></P>Year: 2026
 <p></P>Contributing
