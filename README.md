@@ -1,6 +1,6 @@
 # Python sLLM (small) Trainer v1.0 - Professional Edition
 
-A production-grade desktop application for training custom transformer language models on code and text datasets with a modern navy-themed GUI.
+A production-grade GenAI desktop application for training custom transformer language models on code and text datasets with a modern themed GUI.
 
 ![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20Linux-blue)
 ![Python](https://img.shields.io/badge/python-3.8+-green)
