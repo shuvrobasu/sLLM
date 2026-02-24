@@ -367,36 +367,38 @@ Early Stopping: Enable with patience=3-5
 Validation Split: 10% for most datasets, 3% for huge datasets
 Checkpointing: Save every 100-500 steps for long runs
 
-Troubleshooting
-CUDA Out of Memory
+**Troubleshooting**
+_CUDA Out of Memory_
 
-Reduce batch size
-Lower context length
-Use gradient checkpointing
-Enable FP16 precision
+**Reduce batch size**
+- Lower context length
+- Use gradient checkpointing
+- Enable FP16 precision
 
-Slow Tokenization
+**Slow Tokenization**
 
-Install tokenizers package
-Reduce vocabulary size
-Use incremental mode
+- Install tokenizers package
+- Reduce vocabulary size
+- Use incremental mode
 
-Poor Generation Quality
+**Poor Generation Quality**
 
-Increase model size
-More training epochs
-Better data quality (use refinement)
-Adjust temperature/top-k/top-p
+- Increase model size
+- More training epochs
+- Better data quality (use refinement)
+- Adjust temperature/top-k/top-p
+
+**Additional model architectures (encoder-decoder, MoE)**
+-  More data formats (JSON, CSV parsing)
+- Distributed training support
+- LoRA/QLoRA integration
 
 **License**
-MIT License - See LICENSE file
+MIT License - See LICENSE file<BR>
 _Credits_
-<P>**Author: Shuvro Basu**
-<P></P>Year: 2026
+<BR>**Author: Shuvro Basu**
+<BR></P>Year: 2026
 <P></P>Contributing
 Pull requests welcome. Focus areas:
 
-Additional model architectures (encoder-decoder, MoE)
-More data formats (JSON, CSV parsing)
-Distributed training support
-LoRA/QLoRA integration
+
