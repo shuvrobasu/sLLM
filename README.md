@@ -19,7 +19,6 @@ A production-grade GenAI desktop application for training custom transformer lan
 - Pre-norm architecture (LayerNorm before attention/FFN)
 - Weight tying (token embeddings = output projection)
 - Causal self-attention masking
-- **NO EXTERNAL MODEL DEPENDENCIES**
 - **BOTH TRAINING AND INFERENCE RUN FROM SAME APP**
 - **ABILITY TO TRAIN 1B+ MODELS** (subject to system restrictions)
 - **TESTED TRAINING AND INFERENCE OF 450M MODEL**
@@ -122,7 +121,8 @@ A production-grade GenAI desktop application for training custom transformer lan
 
 ## DPO Training Support
 
-**Direct Preference Optimization for alignment:**
+**Direct Preference Optimization for alignment:**<br>
+_Requires a model like microsoft/phi-2 to be downloaded and saved in a folder and configured in App_
 
 ### DPO Loss
 ```
