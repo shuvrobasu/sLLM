@@ -388,13 +388,12 @@ More training epochs
 Better data quality (use refinement)
 Adjust temperature/top-k/top-p
 
-License
+**License**
 MIT License - See LICENSE file
-Credits
-Author: Shuvro Basu
-Year: 2026
-Tools: PY_CLEAN_DOCUMENT v1.0
-Contributing
+_Credits_
+<P>**Author: Shuvro Basu**
+<P></P>Year: 2026
+<P></P>Contributing
 Pull requests welcome. Focus areas:
 
 Additional model architectures (encoder-decoder, MoE)
