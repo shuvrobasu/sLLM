@@ -14,33 +14,33 @@ Causal self-attention masking
 <img width="1920" height="1040" alt="image" src="https://github.com/user-attachments/assets/5c1e558b-de2f-4650-8e38-602a24b5e29f" />
 
 
-Components:
-1. MultiHeadAttention
+**Components:**
+**1. MultiHeadAttention**
 - Fused QKV projection (3 * d_model)
 - Flash attention compatible (F.scaled_dot_product_attention)
 - Causal masking for autoregressive generation
 - Dropout after attention
-2. TransformerBlock
+**2. TransformerBlock**
 - Pre-LayerNorm architecture
 - Multi-head self-attention with residual
 - Feed-forward network (d_model → d_ff → d_model)
 - GELU activation
 - Optional gradient checkpointing (trade compute for memory)
-3. Generation Capabilities
+**3. Generation Capabilities**
 - Temperature-based sampling
 - Top-K filtering
 - Repetition penalty (configurable > 1.0 = penalize, < 1.0 = encourage)
 - EOS token detection
 - Max token limiting
-Architecture Configurations
+**Architecture Configurations**
 <img width="733" height="279" alt="image" src="https://github.com/user-attachments/assets/e6ca5dae-5eb5-4fdf-a8ce-dda3a8b8952a" />
 
-Model Specifications
+**Model Specifications**
 Embedding:
 
-Vocabulary: 16K - 50K tokens (BPE)
-Dimension: Must be divisible by number of heads
-Position encoding: Learned embeddings up to max_seq_len
+* Vocabulary: 16K - 50K tokens (BPE)
+* Dimension: Must be divisible by number of heads
+* Position encoding: Learned embeddings up to max_seq_len
 
 Attention:
 
@@ -134,69 +134,62 @@ Inbuilt Comprehensive Help
 
 Model File Format
 Checkpoint Structure (.pt):
-python{
-    'model_state_dict': OrderedDict,  # Model weights
-    'optimizer_state_dict': Dict,     # Adam state
-    'model_cfg': Dict,                # Architecture config
-    'train_cfg': Dict,                # Training hyperparams
-    'epoch': int,                     # Current epoch
-    'step': int,                      # Global step
-    'best_val_loss': float,           # Best validation loss
-    'tokenizer_path': str,            # Path to tokenizer.json
-    'train_losses': List[float],      # Training loss history
-    'val_losses': List[float]         # Validation loss history
-}
-Parameter Count Estimation
+
+Parameter Count Estimation<BR>
 <img width="342" height="258" alt="image" src="https://github.com/user-attachments/assets/59f134cb-339a-49e8-bd36-f35952de4c4d" />
 
 VRAM Requirements
 Breakdown:
 
-Model params: ~4 bytes per param (FP32) or ~2 bytes (FP16/BF16)
-Activations: batch_size × seq_len × d_model × n_layers × factor
-Optimizer state: 2x model params (Adam: momentum + variance)
-Gradients: 1x model params
+Model params: 
+* ~4 bytes per param (FP32) or ~2 bytes (FP16/BF16)
+* Activations: batch_size × seq_len × d_model × n_layers × factor
+* Optimizer state: 2x model params (Adam: momentum + variance)
+* Gradients: 1x model params
 
 Example (110M params, BF16):
 
-Model: 110M × 2 = 220MB
-Optimizer: 110M × 2 × 4 = 880MB (FP32 state)
-Activations (batch=64, seq=512): ~6GB
-Gradients: 220MB
-Total: ~8-9GB
+* Model: 110M × 2 = 220MB
+* Optimizer: 110M × 2 × 4 = 880MB (FP32 state)
+* Activations (batch=64, seq=512): ~6GB
+* Gradients: 220MB
+* Total: ~8-9GB
 
 Context Extension
 Increase model context length post-training:
 Method:
 
-Train base model (e.g., 512 tokens)
-Load checkpoint
-Extend position embeddings (interpolate or random init)
-Fine-tune 1-2 epochs with longer sequences
-Gradually increase to target length
+* Train base model (e.g., 512 tokens)
+* Load checkpoint
+* Extend position embeddings (interpolate or random init)
+* Fine-tune 1-2 epochs with longer sequences
+* Gradually increase to target length
 
 Position Interpolation:
-python# Linearly interpolate position embeddings
+python# <BR>
+<code> Linearly interpolate position embeddings
 old_positions = model.pos_emb.weight.data
 new_positions = F.interpolate(
     old_positions.T.unsqueeze(0), 
     size=new_max_len, 
     mode='linear'
 ).squeeze(0).T
-Generation Parameters
+</code>
+
+**Generation Parameters**
 Temperature (0.1 - 2.0):
 
-Low (0.1-0.5): Deterministic, focused
-Medium (0.6-0.9): Balanced creativity
-High (1.0-2.0): Creative, diverse
+* Low (0.1-0.5): Deterministic, focused
+* Medium (0.6-0.9): Balanced creativity
+* High (1.0-2.0): Creative, diverse
 
-Top-K (1 - 100):
+**Top-K (1 - 100):**
 
 Limits sampling to K most probable tokens
 Lower = more focused
 Default: 40
 
-Repetition Penalty (0.5 - 2.0):
+**Repetition Penalty (0.5 - 2.0):**
 
 < 1.0: Encourages repetition
 = 1.0: No effect
@@ -204,11 +197,11 @@ Repetition Penalty (0.5 - 2.0):
 
 1.0: Penalizes repetition
 
-
 Default: 1.2
 
 Technical Details
-Dataset Processing
+
+**Dataset Processing**
 CodeDataset:
 
 Sliding window with configurable stride
@@ -216,36 +209,37 @@ Efficient numpy memory mapping
 Batched loading with PyTorch DataLoader
 Pin memory for faster GPU transfer
 
-Tokenization:
+**Tokenization:**
 
 BPE (Byte Pair Encoding) via HuggingFace tokenizers
 Fallback: Simple word-level tokenizer
 Special tokens: [PAD]=0, [UNK]=1, [BOS]=2, [EOS]=3
 Vocabulary pruning by frequency
 
-Validation Strategy
+**Validation Strategy**
 Metrics:
 
-Perplexity: exp(val_loss)
+**Perplexity: **
+exp(val_loss)
 Raw cross-entropy loss
 Gradient norms (for monitoring stability)
-
-Early Stopping:
+**
+Early Stopping:**
 
 Patience: N epochs without improvement
 Metric: Validation loss
 Restoration: Load best checkpoint on stop
 
 
-System Requirements
-Minimum
+**System Requirements**
+**Minimum**__
 
 Python 3.8+
 8GB System RAM
 GPU: 6GB VRAM (NVIDIA RTX 2060 or equivalent)
 Storage: 10GB+ for checkpoints
 
-Recommended
+**Recommended**__
 
 Python 3.10+
 16GB System RAM
