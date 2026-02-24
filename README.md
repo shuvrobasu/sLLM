@@ -183,6 +183,7 @@ L = -log(σ(β × (log π(y_w|x) - log π(y_l|x))))
 
 ![Parameter Count](https://github.com/user-attachments/assets/59f134cb-339a-49e8-bd36-f35952de4c4d)
 
+
 **Formula:**
 ```
 Total Params ≈ (vocab_size × d_model) + (max_seq_len × d_model) 
@@ -352,6 +353,8 @@ python sllm.py
 3. **Choose Preset**: Click Auto-Select or pick GPU/dataset size preset
 4. **Train**: Click Start Training
 
+<img width="1920" height="1040" alt="image" src="https://github.com/user-attachments/assets/fc049288-589e-488b-ae4e-9450c65f708c" />
+
 ## Model Architectures
 
 ### Presets
@@ -512,6 +515,23 @@ Generate preference pairs for alignment:
 - Better data quality (use refinement)
 - Adjust temperature/top-k/top-p
 
+## Test System
+- CPU Core 7 Ultra 265K
+- RAM DDR5 @5600 MHz 64 GB
+- RTX 5080 16GB with Cuda 13
+- SSD (Samsung)
+- Lots of patience :-)
+
+**Recommend H/W and Notes**
+- At least 14+ Core CPU
+- Min 48GB DDR5 RAM
+- RTX 4090 or later (more VRAM the faster it is). Ensure you have the right CUDA build for PyTorch, Transformers etc. 
+- SDD (Samsung, Hynix, Crucial, WD)
+- At the time of this release many ML modules are still not CUDA 13 compatible natively like ONXX-GPU, xFormers, Transformers (some modules have isses), PyTorch Compile. So you may need to tweak the code to make it work.
+- The code is around 10k lines, and modular. Read the help section in the tool to understand things better.
+- See the code for hardcoded paths. Change them to suit your needs.
+- Drop the .ico and .llm file in the same path as sLLM.py
+  
 ## Future Roadmap
 
 - Additional model architectures (encoder-decoder, MoE)
