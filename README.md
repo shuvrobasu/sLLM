@@ -33,7 +33,8 @@ Components:
 - EOS token detection
 - Max token limiting
 Architecture Configurations
-Configd_modelLayersHeadsd_ffHead DimParamsVRAMContextFast Experiment25644102464~25M4GB256Balanced51268204864~110M8GB512High Quality7681212307264~200M12GB1024GPU 16GB51288204864~140M13GB1024GPU 24GB10241616409664~350M20GB1024
+<img width="733" height="279" alt="image" src="https://github.com/user-attachments/assets/e6ca5dae-5eb5-4fdf-a8ce-dda3a8b8952a" />
+
 Model Specifications
 Embedding:
 
@@ -146,13 +147,8 @@ python{
     'val_losses': List[float]         # Validation loss history
 }
 Parameter Count Estimation
-pythondef estimate_params(d_model, n_layers, n_heads, d_ff, vocab_size):
-    embeddings = vocab_size * d_model * 2  # tok + pos
-    attention = n_layers * (4 * d_model * d_model)  # QKV + out
-    ffn = n_layers * (2 * d_model * d_ff)  # up + down
-    ln = n_layers * 2 * d_model * 2  # gamma + beta per layer
-    output_head = vocab_size * d_model  # (tied with tok_emb)
-    return embeddings + attention + ffn + ln
+<img width="342" height="258" alt="image" src="https://github.com/user-attachments/assets/59f134cb-339a-49e8-bd36-f35952de4c4d" />
+
 VRAM Requirements
 Breakdown:
 
