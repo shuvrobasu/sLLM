@@ -1,9 +1,11 @@
-Python sLLM (small) Trainer v4.0 - Professional Navy Edition
+Python sLLM (small) Trainer v4.0 - Professional Navy Edition<p>
 A production-grade desktop application for training custom transformer language models on code and text datasets with a modern navy-themed GUI.
-Features
-Core Capabilities
+<p>Features
+    
+**Core Capabilities**
+<br>
 
-GPTModel (Decoder-Only Transformer)Base Architecture:<BR>
+**GPTModel (Decoder-Only Transformer)Base Architecture:<BR>**
 
 - Token + positional embeddings
 - N transformer blocks with residual connections
