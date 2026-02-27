@@ -27,7 +27,8 @@ A production-grade GenAI desktop application for training custom transformer lan
   - [Repo Extractor](https://github.com/shuvrobasu/repo_view_extract)
   - [eBook Extractor](https://github.com/shuvrobasu/ebook_convert_extract)
 
-<img width="1920" height="1040" alt="image" src="https://github.com/user-attachments/assets/344ccf26-38fd-4cb2-953d-60f6f3d18ec4" />
+<img width="1920" height="1040" alt="image" src="https://github.com/user-attachments/assets/cefd5b95-a9e5-4ade-8b5d-5bdc20d7b6f2" />
+
 
 
 ### Components
